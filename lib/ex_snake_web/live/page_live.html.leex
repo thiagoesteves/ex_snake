@@ -1,4 +1,6 @@
-<%= live_component @socket, ExSnakeWeb.Components.Header, id: "header" %>
+<%= live_component ExSnakeWeb.Components.Header, id: "header" %>
+
+<%= live_component ExSnakeWeb.Components.Grid, id: "grid", columns: 21, rows: 21 %>
 
 <div>
   <button
@@ -19,8 +21,8 @@
 </div>
 
 
-<%= live_component @socket, ExSnakeWeb.Components.Modal, id: "modal-one" %>
-<%= live_component @socket, ExSnakeWeb.Components.Modal, id: "modal-two" %>
+<%= live_component ExSnakeWeb.Components.Modal, id: "modal-one" %>
+<%= live_component ExSnakeWeb.Components.Modal, id: "modal-two" %>
 
 
 
