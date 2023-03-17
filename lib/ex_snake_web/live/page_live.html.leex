@@ -1,0 +1,28 @@
+<div>
+  <button
+    phx-click="open"
+    phx-target="#modal-one"
+    type="button"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+    Open modal one
+  </button>
+
+  <button
+    phx-click="open"
+    phx-target="#modal-two"
+    type="button"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+    Open modal two
+  </button>
+</div>
+
+
+<%= live_component @socket, ExSnakeWeb.Components.Modal, id: "modal-one" %>
+<%= live_component @socket, ExSnakeWeb.Components.Modal, id: "modal-two" %>
+
+
+
+
+
+
+

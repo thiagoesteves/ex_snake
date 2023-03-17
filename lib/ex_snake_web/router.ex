@@ -17,7 +17,8 @@ defmodule ExSnakeWeb.Router do
   scope "/", ExSnakeWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", PageLive, :index
+    # get "/", PageController, :home
   end
 
   # Other scopes may use custom stacks.
