@@ -1,6 +1,8 @@
 defmodule ExSnakeWeb.Components.Grid do
   use ExSnakeWeb, :live_component
 
+  require Logger
+
   @impl true
   def render(assigns) do
     ~H"""
@@ -9,9 +11,18 @@ defmodule ExSnakeWeb.Components.Grid do
         <%!-- <div style="background-color: #E4BAD4; color: #AC66CC;"></div> --%>
         <%!-- <div style="background-color: lightblue;"> </div> --%>
         <%!-- <div> </div> --%>
-        <%= for _columns <- 1..@columns do %>
-          <%= for _rows <- 1..@rows do %>
-            <div class="bg-red-500 shadow-xl min-h-[20px]" />
+        <%= with m <- @user_map |> Jason.decode!() do %>
+          <%= for row <- @rows-1..0 do %>
+            <%= for column <- 0..@columns-1 do %>
+              <%= cond do %>
+                <% m == %{} -> %>
+                  <div class="bg-red-500 shadow-xl min-h-[20px]" />
+                <% m["food"]["x"] == column and m["food"]["y"] == row -> %>
+                  <div style="background-color: #E4BAD4; color: #AC66CC;"></div>
+                <% true -> %>
+                  <div style="background-color: lightblue;"></div>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
       </div>

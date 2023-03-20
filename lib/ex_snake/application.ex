@@ -15,9 +15,10 @@ defmodule ExSnake.Application do
       # Start Finch
       {Finch, name: ExSnake.Finch},
       # Start the Endpoint (http/https)
-      ExSnakeWeb.Endpoint
-      # Start a worker by calling: ExSnake.Worker.start_link(arg)
-      # {ExSnake.Worker, arg}
+      ExSnakeWeb.Endpoint,
+      # Start the game workers
+      ExSnake.Storage.Game,
+      ExSnake.GameSm.Sup
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

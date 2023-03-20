@@ -1,7 +1,5 @@
 <%= live_component ExSnakeWeb.Components.Header, id: "header" %>
 
-<%= live_component ExSnakeWeb.Components.Grid, id: "grid", columns: 21, rows: 21 %>
-
 <div>
   <button
     phx-click="open"
@@ -20,6 +18,7 @@
   </button>
 </div>
 
+<%= live_component ExSnakeWeb.Components.Grid, id: "grid", columns: 21, rows: 21, user_map: @user_map %>
 
 <%= live_component ExSnakeWeb.Components.Modal, id: "modal-one" %>
 <%= live_component ExSnakeWeb.Components.Modal, id: "modal-two" %>

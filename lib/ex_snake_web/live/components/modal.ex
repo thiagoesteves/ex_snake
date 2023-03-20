@@ -24,11 +24,15 @@ defmodule ExSnakeWeb.Components.Modal do
 
   @impl true
   def handle_event("open", _, socket) do
-    {:noreply, assign(socket, :state, "OPEN")}
-  end
+    user = "thiagoesteves"
 
-  @impl true
-  def handle_event("close", _, socket) do
-    {:noreply, assign(socket, :state, "CLOSED")}
+    case ExSnake.GameSm.Sup.create_game(user, {20, 20}, 200) do
+      {:ok, _} -> :none
+      {:error, {:already_started, _}} -> :none
+    end
+
+    {:ok, _} = ExSnake.GameSm.start_game(user)
+
+    {:noreply, assign(socket, :state, "OPEN")}
   end
 end
