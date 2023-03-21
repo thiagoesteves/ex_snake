@@ -1,14 +1,19 @@
 defmodule ExSnakeWeb.PageLive do
   use ExSnakeWeb, :live_view
 
+  require Logger
+
+  @default_columns 21
+  @default_rows 21
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, user_map: "{}")}
+    {:ok, assign(socket, columns: @default_columns, rows: @default_rows, user_map: "{}")}
   end
 
   @impl true
   def handle_info({:snake_sm_updated, snake_position, points, {fx, fy}}, socket) do
-    IO.puts(
+    Logger.info(
       "Received snake_position: #{inspect(snake_position)} points: #{points} food: {#{fx}, #{fy}}"
     )
 
@@ -26,8 +31,15 @@ defmodule ExSnakeWeb.PageLive do
       |> Map.delete(:counter)
       |> Map.put(:update, :elisnake_sm)
       |> Map.put(:food, %{x: fx, y: fy})
-      |> Map.put(:points, points)
+      |> Map.put(:points, :rand.uniform(10))
       |> Jason.encode!()
+
+    send_update(ExSnakeWeb.Components.Grid,
+      id: "grid",
+      columns: socket.assigns.columns,
+      rows: socket.assigns.rows,
+      user_map: user_map
+    )
 
     {:noreply, assign(socket, user_map: user_map)}
   end

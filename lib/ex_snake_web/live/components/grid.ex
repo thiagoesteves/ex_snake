@@ -7,6 +7,7 @@ defmodule ExSnakeWeb.Components.Grid do
   def render(assigns) do
     ~H"""
     <div class="board-game" style="background-color:#F8EDED;">
+      <p>user_map: <%= @user_map %></p>
       <div class="game">
         <%!-- <div style="background-color: #E4BAD4; color: #AC66CC;"></div> --%>
         <%!-- <div style="background-color: lightblue;"> </div> --%>
