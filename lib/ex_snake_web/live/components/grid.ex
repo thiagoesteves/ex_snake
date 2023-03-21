@@ -7,7 +7,13 @@ defmodule ExSnakeWeb.Components.Grid do
   def render(assigns) do
     ~H"""
     <div class="board-game" style="background-color:#F8EDED;">
-      <p>user_map: <%= @user_map %></p>
+      <%= if @user_map == "{}" do %>
+        <p>Game not started</p>
+      <% else %>
+        <div id="thermostat" phx-window-keyup="move_update">
+          user_map: <%= @user_map %>
+        </div>
+      <% end %>
       <div class="game">
         <%!-- <div style="background-color: #E4BAD4; color: #AC66CC;"></div> --%>
         <%!-- <div style="background-color: lightblue;"> </div> --%>
@@ -20,8 +26,10 @@ defmodule ExSnakeWeb.Components.Grid do
                   <div class="bg-red-500 shadow-xl min-h-[20px]" />
                 <% m["food"]["x"] == column and m["food"]["y"] == row -> %>
                   <div style="background-color: #E4BAD4; color: #AC66CC;"></div>
-                <% true -> %>
+                <% Enum.member?(m["snake"], %{"x" => column, "y" => row}) -> %>
                   <div style="background-color: lightblue;"></div>
+                <% true -> %>
+                  <div></div>
               <% end %>
             <% end %>
           <% end %>
