@@ -8,35 +8,42 @@ defmodule ExSnakeWeb.PageLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, columns: @default_columns, rows: @default_rows, user_map: "{}")}
+    {:ok,
+     assign(socket,
+       user: "",
+       points: 0,
+       columns: @default_columns,
+       rows: @default_rows,
+       user_map: "{}"
+     )}
   end
 
   @impl true
   def handle_event("move_update", %{"key" => "ArrowUp"}, socket) do
-    ExSnake.GameSm.action("thiagoesteves", :up)
+    ExSnake.GameSm.action(socket.assigns.user, :up)
     {:noreply, socket}
   end
 
   @impl true
   def handle_event("move_update", %{"key" => "ArrowDown"}, socket) do
-    ExSnake.GameSm.action("thiagoesteves", :down)
+    ExSnake.GameSm.action(socket.assigns.user, :down)
     {:noreply, socket}
   end
 
   @impl true
   def handle_event("move_update", %{"key" => "ArrowLeft"}, socket) do
-    ExSnake.GameSm.action("thiagoesteves", :left)
+    ExSnake.GameSm.action(socket.assigns.user, :left)
     {:noreply, socket}
   end
 
   @impl true
   def handle_event("move_update", %{"key" => "ArrowRight"}, socket) do
-    ExSnake.GameSm.action("thiagoesteves", :right)
+    ExSnake.GameSm.action(socket.assigns.user, :right)
     {:noreply, socket}
   end
 
   @impl true
-  def handle_info({:snake_sm_updated, snake_position, points, {fx, fy}}, socket) do
+  def handle_info({:snake_sm_updated, user, snake_position, points, {fx, fy}}, socket) do
     Logger.info(
       "Received snake_position: #{inspect(snake_position)} points: #{points} food: {#{fx}, #{fy}}"
     )
@@ -65,12 +72,24 @@ defmodule ExSnakeWeb.PageLive do
       user_map: user_map
     )
 
-    {:noreply, assign(socket, user_map: user_map)}
+    send_update(ExSnakeWeb.Components.Header,
+      id: "header",
+      points: points,
+      user_map: user_map
+    )
+
+    {:noreply, assign(socket, user_map: user_map, points: points, user: user)}
   end
 
   @impl true
-  def handle_info({:snake_sm_game_over, map}, socket) do
-    Logger.info("Received snake_sm_game_over with map: #{inspect(map)}")
+  def handle_info({:snake_sm_game_over, data}, socket) do
+    Logger.info("Received snake_sm_game_over with map: #{inspect(data)}")
+
+    send_update(ExSnakeWeb.Components.Header,
+      id: "header",
+      points: data.points
+    )
+
     {:noreply, socket}
   end
 end

@@ -364,10 +364,14 @@ defmodule ExSnake.GameSm do
 
   # Notify subscribed players the game arena was updated
   defp notify_players(user, points, snake_position, food),
-    do: gproc_notify(gproc_player_group(user), snake_sm_update_msg(snake_position, points, food))
+    do:
+      gproc_notify(
+        gproc_player_group(user),
+        snake_sm_update_msg(user, snake_position, points, food)
+      )
 
-  defp snake_sm_update_msg(snake_position, points, food),
-    do: {:snake_sm_updated, snake_position, points, food}
+  defp snake_sm_update_msg(user, snake_position, points, food),
+    do: {:snake_sm_updated, user, snake_position, points, food}
 
   defp snake_sm_game_over(state), do: {:snake_sm_game_over, state}
   # : Gproc groups

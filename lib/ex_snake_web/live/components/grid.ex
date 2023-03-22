@@ -7,13 +7,12 @@ defmodule ExSnakeWeb.Components.Grid do
   def render(assigns) do
     ~H"""
     <div class="board-game" style="background-color:#F8EDED;">
-      <%= if @user_map == "{}" do %>
-        <p>Game not started</p>
+      <%= if @user_map != "{}" do %>
+        <div id="grid-one" phx-window-keyup="move_update"></div>
       <% else %>
-        <div id="thermostat" phx-window-keyup="move_update">
-          user_map: <%= @user_map %>
-        </div>
+        <div></div>
       <% end %>
+      <div></div>
       <div class="game">
         <%!-- <div style="background-color: #E4BAD4; color: #AC66CC;"></div> --%>
         <%!-- <div style="background-color: lightblue;"> </div> --%>
