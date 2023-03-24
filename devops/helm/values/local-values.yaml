@@ -1,0 +1,16 @@
+replicaCount: 1
+service_name: "ex-snake"
+
+image:
+  repository: gcr.io/ex-snake
+  pullPolicy: Never
+  tag: latest
+
+envVar:
+  ENV_NAME: "dev"
+  PHX_PORT: "{{ .Values.service.port }}"
+  PHX_HOST: "localhost"
+  LOGGER_LEVEL: "info"
+  GITHUB_SHA: "{{ .Values.GITHUB_SHA }}"
+  ERLANG_COOKIE: "XXXXXXXXXXXXXXXXXXXX"
+  SECRET_KEY_BASE: "sufL2x0kyRl380YF8L6A8Ya6G2gUbe4hhQud1wmjCQ3NAPHu66Q+n9AAKsV9PEC+"

@@ -17,6 +17,24 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+## Deploy [Docker]
+
+### Create a docker image to deploy
+The next command will create and publish your application image into the docker
+```
+make docker.build
+```
+
+### Deploy using helm (Running locally)
+```
+make local.deploy.install
+```
+
+### Uninstall deployment
+```
+make local.deploy.uninstall
+```
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/

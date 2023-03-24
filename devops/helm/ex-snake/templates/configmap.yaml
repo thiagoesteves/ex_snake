@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ex-snake-config
+  labels:
+    app: ex-snake
+data:
+  {{- range $key, $value := .Values.envVar }}
+  {{ $key }}: {{ tpl $value $ | quote }}
+  {{- end }}
