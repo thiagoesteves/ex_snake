@@ -1,4 +1,5 @@
-[![Erlant/OTP Release](https://img.shields.io/badge/Erlang-OTP--25.0-green.svg)](https://github.com/erlang/otp/releases/tag/OTP-24.0)
+[![Phoenix Liveview Develop](https://github.com/thiagoesteves/ex_snake/actions/workflows/develop.yml/badge.svg)](https://github.com/thiagoesteves/ex_snake/actions/workflows/develop.yml)
+[![Erlant/OTP Release](https://img.shields.io/badge/Erlang-OTP--24.0-green.svg)](https://github.com/erlang/otp/releases/tag/OTP-24.0)
 
 # Game webserver written in Elixir + Phoenix Liveview
 
