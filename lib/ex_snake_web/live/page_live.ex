@@ -43,6 +43,12 @@ defmodule ExSnakeWeb.PageLive do
   end
 
   @impl true
+  def handle_event("move_update", %{"key" => key}, socket) do
+    Logger.warning("Invalid or not expected key typed: #{key}")
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_info({:snake_sm_updated, user, snake_position, points, {fx, fy}}, socket) do
     Logger.info(
       "Received snake_position: #{inspect(snake_position)} points: #{points} food: {#{fx}, #{fy}}"

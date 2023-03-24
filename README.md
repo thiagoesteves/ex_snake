@@ -1,4 +1,12 @@
-# ExSnake
+[![Erlant/OTP Release](https://img.shields.io/badge/Erlang-OTP--25.0-green.svg)](https://github.com/erlang/otp/releases/tag/OTP-24.0)
+
+# Game webserver written in Elixir + Phoenix Liveview
+
+![Erlgame](/docs/ex_snake.png)
+
+The app has the same core game written in [Erlang](https://github.com/thiagoesteves/erlgame) and  [Elixir](https://github.com/thiagoesteves/elisnake) but it is using phoenix as webserver and liveview to connect the templates with the server. It is part of the liveview studies.
+
+# Compile and run the application
 
 To start your Phoenix server:
 
