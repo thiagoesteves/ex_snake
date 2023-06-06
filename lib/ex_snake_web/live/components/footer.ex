@@ -1,8 +1,7 @@
 defmodule ExSnakeWeb.Components.Footer do
-  use ExSnakeWeb, :live_component
+  use Phoenix.Component
 
-  @impl true
-  def render(assigns) do
+  def content(assigns) do
     ~H"""
     <footer class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
       <div class="w-full mx-auto container md:p-6 p-4 md:flex md:items-center md:justify-between">

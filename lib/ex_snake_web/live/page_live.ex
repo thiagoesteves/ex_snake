@@ -1,6 +1,8 @@
 defmodule ExSnakeWeb.PageLive do
   use ExSnakeWeb, :live_view
 
+  alias ExSnakeWeb.Components.{Grid, Footer}
+
   require Logger
 
   @default_columns 21
@@ -71,19 +73,6 @@ defmodule ExSnakeWeb.PageLive do
       |> Map.put(:points, points)
       |> Jason.encode!()
 
-    send_update(ExSnakeWeb.Components.Grid,
-      id: "grid",
-      columns: socket.assigns.columns,
-      rows: socket.assigns.rows,
-      user_map: user_map
-    )
-
-    send_update(ExSnakeWeb.Components.Header,
-      id: "header",
-      points: points,
-      user_map: user_map
-    )
-
     {:noreply, assign(socket, user_map: user_map, points: points, user: user)}
   end
 
@@ -91,11 +80,15 @@ defmodule ExSnakeWeb.PageLive do
   def handle_info({:snake_sm_game_over, data}, socket) do
     Logger.info("Received snake_sm_game_over with map: #{inspect(data)}")
 
-    send_update(ExSnakeWeb.Components.Header,
-      id: "header",
-      points: data.points
-    )
-
-    {:noreply, socket}
+    with {:ok, [{player_username, player_score} | _]} <-
+           ExSnake.Storage.Game.get_best_player(ExSnake.GameSm),
+         true <- data.points >= player_score,
+         true <- data.username == player_username do
+      {:noreply,
+       socket |> put_flash(:info, "Game Over - New Record \n congrats #{data.points} points")}
+    else
+      _ ->
+        {:noreply, socket |> put_flash(:error, "Game Over - Sorry, try again")}
+    end
   end
 end

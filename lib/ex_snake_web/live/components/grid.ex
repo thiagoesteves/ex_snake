@@ -1,10 +1,7 @@
 defmodule ExSnakeWeb.Components.Grid do
-  use ExSnakeWeb, :live_component
+  use Phoenix.Component
 
-  require Logger
-
-  @impl true
-  def render(assigns) do
+  def content(assigns) do
     ~H"""
     <div class="board-game" style="background-color:#F8EDED;">
       <%= if @user_map != "{}" do %>
